@@ -1,0 +1,262 @@
+<!doctypehtml><html lang=en><meta charset=utf8><title>Create an editor - unified</title><meta content="width=device-width,initial-scale=1"name=viewport><link href=https://github.com rel=preconnect><link href=https://images.opencollective.com rel=preconnect><link href=https://twitter-avatar.now.sh rel=preconnect><link href=https://www.npmjs.com rel=preconnect><link href=https://bundlephobia.com rel=preconnect><link href=https://www.npmtrends.com rel=preconnect><link href=/syntax-light.css rel=stylesheet><link href=/index.css rel=stylesheet><link href=/big.css rel=stylesheet media=(min-width:36em)><link href=/syntax-dark.css rel=stylesheet media=(prefers-color-scheme:dark)><link href=/dark.css rel=stylesheet media=(prefers-color-scheme:dark)><link href=https://unifiedjs.com/learn/guide/create-an-editor/ rel=canonical><meta content="Guide that shows how to create a fancy app ✨"name=description><meta content=guide,editor,dingus,unified,parse,stringify,process,ast,transform name=keywords><meta content="Titus Wormer"name=author><meta content="© 2017 Titus Wormer"name=copyright><meta content=#0366d6 name=theme-color><meta content=article property=og:type><meta content=unified property=og:site_name><meta content=https://unifiedjs.com/learn/guide/create-an-editor/ property=og:url><meta content="Create an editor"property=og:title><meta content="Guide that shows how to create a fancy app ✨"property=og:description><meta content=https://unifiedjs.com/image/cover-1200.png property=og:image><meta content="We compile content to syntax trees and syntax trees to content. We also provide hundreds of packages to work on the trees in between. You can build on the unified collective to make all kinds of interesting things."property=og:image:alt><meta content=1200 property=og:image:width><meta content=690 property=og:image:height><meta content=2017-05-03T00:00:00.000Z property=article:published_time><meta content=2019-12-12T00:00:00.000Z property=article:modified_time><meta content=guide property=article:tag><meta content=editor property=article:tag><meta content=dingus property=article:tag><meta content=summary_large_image name=twitter:card><meta content=https://unifiedjs.com/image/cover-1200.png name=twitter:image><meta content="We compile content to syntax trees and syntax trees to content. We also provide hundreds of packages to work on the trees in between. You can build on the unified collective to make all kinds of interesting things."name=twitter:image:alt><meta content=@unifiedjs name=twitter:site><meta content=@wooorm name=twitter:creator><script defer src=/search.js></script><header class=container><div class=row-l><h1><a href=/ class=unified><span class=hl>uni</span>fied</a></h1><nav class="flex row-l"aria-label="Main navigation"><ol class="flex row"><li><a href=/explore/>Explore</a><li><a href=/learn/>Learn</a><li><a href=/community/>Community</a></ol><ol class="row x-show-l justify-end-l"><li><a href=https://twitter.com/unifiedjs><svg class="icon x-show-l"height=24 viewBox="0 0 18 14"width=24 aria-label=Twitter role=img><path d="M18 1.684l-1.687 1.684v.28c0 .307-.05.602-.123.886-.04 2.316-.777 5.387-3.816 7.81C6.404 17.115 0 12.907 0 12.907c5.063 0 5.063-1.684 5.063-1.684-1.126 0-3.376-2.243-3.376-2.243.563.56 1.689 0 1.689 0C.56 7.295.56 5.61.56 5.61c.563.561 1.689 0 1.689 0C-.563 3.368 1.124.561 1.124.561 1.687 3.368 9 4.49 9 4.49l.093-.046A6.637 6.637 0 0 1 9 3.368C9 1.353 10.636 0 12.656 0c1.112 0 2.094.506 2.765 1.286l.329-.163L17.437 0l-1.122 2.245L18 1.684z"fill=currentcolor /></svg><span class=x-hide-l>Twitter</span></a><li><a href=https://github.com/unifiedjs><svg class="icon x-show-l"height=24 viewBox="0 0 48 48"width=24 aria-label=GitHub role=img><path d="M23.928 1.15C11 1.15.514 11.638.514 24.566c0 10.343 6.75 19.105 15.945 22.265 1.148.144 1.58-.574 1.58-1.15v-4.02c-6.465 1.436-7.902-3.16-7.902-3.16-1.005-2.73-2.586-3.45-2.586-3.45-2.154-1.435.144-1.435.144-1.435 2.298.144 3.59 2.442 3.59 2.442 2.156 3.59 5.46 2.586 6.753 2.01.142-1.58.86-2.585 1.435-3.16-5.17-.574-10.63-2.585-10.63-11.635 0-2.585.862-4.596 2.442-6.32-.287-.575-1.005-3.017.288-6.177 0 0 2.01-.574 6.464 2.442 1.866-.574 3.877-.718 5.888-.718 2.01 0 4.022.286 5.89.717 4.453-3.016 6.464-2.442 6.464-2.442 1.293 3.16.43 5.602.287 6.177a9.29 9.29 0 012.44 6.32c0 9.05-5.458 10.918-10.63 11.492.863.718 1.58 2.155 1.58 4.31v6.464c0 .574.432 1.292 1.58 1.15 9.338-3.16 15.946-11.924 15.946-22.266-.143-12.785-10.63-23.27-23.558-23.27z"fill=currentcolor clip-rule=evenodd fill-rule=evenodd /></svg><span class=x-hide-l>GitHub</span></a></ol></nav></div></header><section class=container><div class="row-l column-l"><h2><a href=/learn/>Learn</a><span class="lowlight separator">/</span><a href=/learn/guide/>Guide</a><span class="lowlight separator">/</span><span class=content><a href=/learn/guide/create-an-editor/>Create an editor</a></span></h2></div></section><main class=container><div class="content article"><h2 id=creating-an-editor><a href=#creating-an-editor class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Creating an editor</h2><blockquote><p>I’m not entirely sure how to call this thing. “Demo” is too generic, “dingus” too vague, and I think editor is pretty apt. Anyway, drop a line on <a href=https://spectrum.chat/unified rel="nofollow noopener noreferrer">Spectrum</a> if you know a better name.</blockquote><p>This guide shows how to create an interactive online editor with <a href=/explore/package/unified/ class=unified><span class=hl>uni</span>fied</a>. In it we’ll visualise syntactic properties of text by “syntax highlighting” them. The editor will run in a browser. It’ll be fast as we’re using <a href=https://github.com/Matt-Esch/virtual-dom rel="nofollow noopener noreferrer"><code>virtual-dom</code></a> (but you could use <a href=https://reactjs.org/ rel="nofollow noopener noreferrer">React</a> and the like too).<p>For this example we’ll create an app that visualises sentence length. It’s based on a tip by <a href=http://www.garyprovost.com/ rel="nofollow noopener noreferrer">Gary Provost</a>, and the visualisation is based on <a href=https://twitter.com/gregoryciotti/status/639837682844090369 rel="nofollow noopener noreferrer">a tweet by @gregoryciotti</a>.<p>You can also <a href=https://wooorm.com/write-music/ rel="nofollow noopener noreferrer">view this project</a> with some more features online.<blockquote><p>Stuck? A good place to get help fast is <a href=https://spectrum.chat/unified rel="nofollow noopener noreferrer">Spectrum</a>. Have an idea for another guide? Share it on spectrum!</blockquote><h3 id=contents><a href=#contents class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Contents</h3><ul><li><a href=#case>Case</a><li><a href=#project-structure>Project structure</a><li><a href=#setting-up-javascript>Setting up JavaScript</a><li><a href=#natural-language-syntax-tree>Natural language syntax tree</a><li><a href=#virtual-dom>Virtual <abbr title="Document object model"class=first>DOM</abbr></a><li><a href=#highlight>Highlight</a><li><a href=#colour>Colour</a><li><a href=#squashing-bugs>Squashing bugs</a><li><a href=#further-exercises>Further exercises</a></ul><h3 id=case><a href=#case class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Case</h3><p>Before we start, let’s first outline what we want to make. We want to highlight sentences in text based on how many words they have. The user should be able to change text, and it should highlight live.<p>We’ll use <a href=https://github.com/sindresorhus/xo rel="nofollow noopener noreferrer">xo</a> as a linter, and <a href=https://github.com/substack/node-browserify rel="nofollow noopener noreferrer">browserify</a> as a bundler to compile our JavaScript with <code>require</code> calls to JavaScript that works in the browser (you can swap those out for your favourite linter and bundler).<h3 id=project-structure><a href=#project-structure class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Project structure</h3><p>Let’s first outline our project structure:<pre><code class="hljs language-txt">demo/
+├─ index.js
+├─ build.js
+├─ index.html
+├─ index.css
+└─ package.json
+</code></pre><p>…where <code>demo/</code> is our directory, and <code>build.js</code> is the JavaScript generated by compiling <code>index.js</code>.<p>Keep <code>index.js</code>, <code>index.html</code>, and <code>index.css</code> empty for now, and fill <code>package.json</code> with the following.<pre><code class="hljs language-json">{
+  <span class=hljs-attr>"name"</span>: <span class=hljs-string>"demo"</span>,
+  <span class=hljs-attr>"private"</span>: <span class=hljs-literal>true</span>,
+  <span class=hljs-attr>"dependencies"</span>: {},
+  <span class=hljs-attr>"devDependencies"</span>: {
+    <span class=hljs-attr>"browserify"</span>: <span class=hljs-string>"^16.0.0"</span>,
+    <span class=hljs-attr>"xo"</span>: <span class=hljs-string>"^0.23.0"</span>
+  },
+  <span class=hljs-attr>"scripts"</span>: {
+    <span class=hljs-attr>"build"</span>: <span class=hljs-string>"browserify index.js > build.js"</span>,
+    <span class=hljs-attr>"lint"</span>: <span class=hljs-string>"xo"</span>,
+    <span class=hljs-attr>"test"</span>: <span class=hljs-string>"npm run build &#38&#38 npm run lint"</span>
+  },
+  <span class=hljs-attr>"xo"</span>: {
+    <span class=hljs-attr>"space"</span>: <span class=hljs-literal>true</span>,
+    <span class=hljs-attr>"esnext"</span>: <span class=hljs-literal>false</span>,
+    <span class=hljs-attr>"envs"</span>: [
+      <span class=hljs-string>"browser"</span>
+    ],
+    <span class=hljs-attr>"ignore"</span>: [
+      <span class=hljs-string>"build.js"</span>
+    ]
+  }
+}
+</code></pre><blockquote><p><a href=https://docs.npmjs.com/files/package.json#private rel="nofollow noopener noreferrer"><code>private: true</code></a> means you can’t accidentally publish your package to npm.</blockquote><p>Now, after running <code>npm install</code> and <code>npm test</code> you’ll see <code>build.js</code> appear too. The above package sets up <a href=https://github.com/sindresorhus/xo rel="nofollow noopener noreferrer">xo</a> as the linter and <a href=https://github.com/substack/node-browserify rel="nofollow noopener noreferrer">browserify</a> as the bundler.<p>Now, fill <code>index.html</code> with the following:<pre><code class="hljs language-html"><span class=hljs-meta>&#60!doctype html></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>meta</span> <span class=hljs-attr>charset</span>=<span class=hljs-string>"utf8"</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>title</span>></span>demo<span class=hljs-tag>&#60/<span class=hljs-name>title</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>link</span> <span class=hljs-attr>rel</span>=<span class=hljs-string>"stylesheet"</span> <span class=hljs-attr>href</span>=<span class=hljs-string>"index.css"</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>div</span> <span class=hljs-attr>id</span>=<span class=hljs-string>"root"</span>></span><span class=hljs-tag>&#60/<span class=hljs-name>div</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>script</span> <span class=hljs-attr>src</span>=<span class=hljs-string>"build.js"</span>></span><span class=hljs-tag>&#60/<span class=hljs-name>script</span>></span>
+</code></pre><p>This links <code>index.css</code> and <code>build.js</code>, and adds an element (<code>#root</code>) which we’ll add our editor to later. Oh, did you know that <code>&#60html></code>, <code>&#60head></code>, and <code>&#60body></code> are optional? For this example we’ll keep the <abbr title="Hypertext markup language"class=first>HTML</abbr> minimal, but feel free to add them if you prefer them.<h3 id=setting-up-javascript><a href=#setting-up-javascript class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Setting up JavaScript</h3><p>Alright! Now, let’s set up our JavaScript. Start by adding the following to <code>index.js</code>:<pre><code class="hljs language-js"><span class=hljs-keyword>var</span> h = <span class=hljs-built_in>require</span>(<span class=hljs-string>'virtual-dom/h'</span>)
+<span class=hljs-keyword>var</span> createElement = <span class=hljs-built_in>require</span>(<span class=hljs-string>'virtual-dom/create-element'</span>)
+<span class=hljs-keyword>var</span> diff = <span class=hljs-built_in>require</span>(<span class=hljs-string>'virtual-dom/diff'</span>)
+<span class=hljs-keyword>var</span> patch = <span class=hljs-built_in>require</span>(<span class=hljs-string>'virtual-dom/patch'</span>)
+
+<span class=hljs-keyword>var</span> root = <span class=hljs-built_in>document</span>.getElementById(<span class=hljs-string>'root'</span>)
+<span class=hljs-keyword>var</span> tree = render(<span class=hljs-string>'The initial text.'</span>)
+<span class=hljs-keyword>var</span> dom = root.appendChild(createElement(tree))
+
+<span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>onchange</span>(<span class=hljs-params>ev</span>) </span>{
+  <span class=hljs-keyword>var</span> next = render(ev.target.value)
+  dom = patch(dom, diff(tree, next))
+  tree = next
+}
+
+<span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>render</span>(<span class=hljs-params>text</span>) </span>{
+  <span class=hljs-keyword>var</span> node = parse(text)
+
+  <span class=hljs-keyword>return</span> h(<span class=hljs-string>'div'</span>, {<span class=hljs-attr>className</span>: <span class=hljs-string>'editor'</span>}, [
+    h(<span class=hljs-string>'div'</span>, {<span class=hljs-attr>key</span>: <span class=hljs-string>'draw'</span>, <span class=hljs-attr>className</span>: <span class=hljs-string>'draw'</span>}, highlight(node)),
+    h(<span class=hljs-string>'textarea'</span>, {
+      <span class=hljs-attr>key</span>: <span class=hljs-string>'area'</span>,
+      <span class=hljs-attr>value</span>: text,
+      <span class=hljs-attr>oninput</span>: onchange
+    })
+  ])
+
+  <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>parse</span>(<span class=hljs-params></span>) </span>{}
+
+  <span class=hljs-function><span class=hljs-keyword>function</span> <span class=hljs-title>highlight</span>(<span class=hljs-params></span>) </span>{}
+}
+</code></pre><blockquote><p>Don’t forget to <code>npm install --save virtual-dom</code>.</blockquote><p>That’s going a bit fast, I can imagine, if you’ve never seen <a href=https://github.com/Matt-Esch/virtual-dom rel="nofollow noopener noreferrer"><code>virtual-dom</code></a> in use before. If that’s the case, please take some time to peruse the <code>virtual-dom</code> docs at your leisure. This guide will wait!<p>To summarise what all these things in the code mean:<ul><li><code>h</code> creates “virtual” nodes<li><code>createElement</code> turns them into <abbr title="Document object model">DOM</abbr> nodes<li><code>diff</code> finds the difference between two virtual nodes<li><code>patch</code> applies <code>diff</code> to a <abbr title="Document object model">DOM</abbr> node<li><code>root</code> is our anchor into the document<li><code>tree</code> is the current virtual tree<li><code>dom</code> is the current <abbr title="Document object model">DOM</abbr> tree<li><code>onchange</code> handles any state change (the text in our case)<li><code>render</code> creates a new virtual tree based on that state<li><code>parse</code> transforms the state into a natural language syntax tree<li><code>highlight</code> transforms that syntax tree into a virtual tree</ul><p>In <code>render</code>, we’re creating two elements: a <code>&#60div></code> that we’ll draw our syntax highlighting in, and a <code>&#60textarea></code> that the user can edit. Both are wrapped in a parent <code>&#60div></code>. We’ll style the text area and the drawing area exactly the same, and position the text above the drawing area, with the following styles.<pre><code class="hljs language-css"><span class=hljs-selector-tag>html</span> {
+  <span class=hljs-attribute>font-size</span>: <span class=hljs-number>16px</span>;
+  <span class=hljs-attribute>line-height</span>: <span class=hljs-number>1.5</span>;
+}
+
+<span class=hljs-selector-class>.editor</span> {
+  <span class=hljs-attribute>position</span>: relative;
+  <span class=hljs-attribute>max-width</span>: <span class=hljs-number>37em</span>;
+  <span class=hljs-attribute>margin</span>: auto;
+  <span class=hljs-attribute>overflow</span>: hidden;
+}
+
+<span class=hljs-selector-tag>textarea</span>, <span class=hljs-selector-class>.draw</span> {
+  <span class=hljs-attribute>margin</span>: <span class=hljs-number>0</span>;
+  <span class=hljs-attribute>padding</span>: <span class=hljs-number>0</span>;
+  <span class=hljs-attribute>width</span>: <span class=hljs-number>100%</span>;
+  <span class=hljs-attribute>border</span>: none;
+  <span class=hljs-attribute>outline</span>: none;
+  <span class=hljs-attribute>resize</span>: none;
+  <span class=hljs-attribute>overflow</span>: hidden;
+  <span class=hljs-comment>/* Can’t use a nice font: kerning renders differently in textareas. */</span>
+  <span class=hljs-attribute>font-family</span>: monospace;
+  <span class=hljs-attribute>line-height</span>: inherit;
+  <span class=hljs-attribute>font-size</span>: inherit;
+  <span class=hljs-attribute>background</span>: transparent;
+  <span class=hljs-attribute>white-space</span>: pre-wrap;
+  <span class=hljs-attribute>word-wrap</span>: break-word;
+  <span class=hljs-attribute>font-size</span>: inherit;
+  <span class=hljs-attribute>line-height</span>: inherit;
+}
+
+<span class=hljs-selector-tag>textarea</span> {
+  <span class=hljs-attribute>color</span>: inherit;
+  <span class=hljs-attribute>position</span>: absolute;
+  <span class=hljs-attribute>top</span>: <span class=hljs-number>0</span>;
+}
+
+<span class=hljs-selector-class>.draw</span> {
+  <span class=hljs-attribute>min-height</span>: <span class=hljs-number>100vh</span>;
+}
+</code></pre><p>That’s quite a bit of code: mainly to enforce the same styles on our text and drawing areas.<h3 id=natural-language-syntax-tree><a href=#natural-language-syntax-tree class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Natural language syntax tree</h3><p>Now, let’s set up our natural language syntax tree parsing. We’ll use <a href=/explore/package/unified/ class=unified><span class=hl>uni</span>fied</a> (d’oh), and <a href=/explore/package/retext-english/><code>retext-english</code></a> to parse English natural language.<p>Change <code>index.js</code> like so:<pre><code class="hljs language-diff">@@ -2,7 +2,10 @@ var h = require('virtual-dom/h')
+ var createElement = require('virtual-dom/create-element')
+ var diff = require('virtual-dom/diff')
+ var patch = require('virtual-dom/patch')
+<span class=hljs-addition>+var unified = require('unified')</span>
+<span class=hljs-addition>+var english = require('retext-english')</span>
+
+<span class=hljs-addition>+var processor = unified().use(english)</span>
+ var root = document.getElementById('root')
+ var tree = render('The initial text.')
+ var dom = root.appendChild(createElement(tree))
+@@ -25,7 +28,9 @@ function render(text) {
+     })
+   ])
+
+<span class=hljs-deletion>-  function parse() {}</span>
+<span class=hljs-addition>+  function parse(value) {</span>
+<span class=hljs-addition>+    return processor.runSync(processor.parse(value))</span>
+<span class=hljs-addition>+  }</span>
+
+   function highlight() {}
+ }
+</code></pre><blockquote><p>Don’t forget to <code>npm install --save unified retext-english</code>.</blockquote><p>Sweet, now we have access to a lot of info on the text. It still doesn’t do anything yet though. Let’s add some usefulness.<h3 id=virtual-dom><a href=#virtual-dom class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Virtual <abbr title="Document object model">DOM</abbr></h3><p>Our next task is to go from a natural language syntax tree to a virtual <abbr title="Document object model">DOM</abbr>. We already have <code>highlight</code> for that, but it’s empty, so let’s add code to fill it:<pre><code class="hljs language-diff">@@ -32,5 +32,21 @@ function render(text) {
+     return processor.runSync(processor.parse(value))
+   }
+
+<span class=hljs-deletion>-  function highlight() {}</span>
+<span class=hljs-addition>+  function highlight(node) {</span>
+<span class=hljs-addition>+    var children = node.children</span>
+<span class=hljs-addition>+    var length = children.length</span>
+<span class=hljs-addition>+    var index = -1</span>
+<span class=hljs-addition>+    var results = []</span>
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+    while (++index &#60 length) {</span>
+<span class=hljs-addition>+      results = results.concat(one(children[index]))</span>
+<span class=hljs-addition>+    }</span>
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+    return results</span>
+<span class=hljs-addition>+  }</span>
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+  function one(node) {</span>
+<span class=hljs-addition>+    var result = 'value' in node ? node.value : highlight(node)</span>
+<span class=hljs-addition>+    return result</span>
+<span class=hljs-addition>+  }</span>
+ }
+</code></pre><p><code>highlight</code> searches all children in the given <code>node</code>, and <code>one</code> returns either the “text content” of a node, or the result of searching its children for text content.<p>If you’d now run <code>npm test</code> again, and open <code>index.html</code> in your browser, you’ll see that the drawing area already has our text (it’s hidden with styles, but you should be able to see it in your web inspector).<p>We need one more thing before we can start highlighting: we need to detect sentences, and apply styles to them. Change <code>index.js</code> like so:<pre><code class="hljs language-diff">@@ -18,6 +18,7 @@ function onchange(ev) {
+
+ function render(text) {
+   var node = parse(text)
+<span class=hljs-addition>+  var key = 0</span>
+
+   return h('div', {className: 'editor'}, [
+     h('div', {key: 'draw', className: 'draw'}, highlight(node)),
+@@ -47,6 +48,19 @@ function render(text) {
+
+   function one(node) {
+     var result = 'value' in node ? node.value : highlight(node)
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+    if (node.type === 'SentenceNode') {</span>
+<span class=hljs-addition>+      key++</span>
+<span class=hljs-addition>+      result = h('span', {</span>
+<span class=hljs-addition>+        key: 's-' + key,</span>
+<span class=hljs-addition>+        style: {backgroundColor: color(count(node))}</span>
+<span class=hljs-addition>+      }, result)</span>
+<span class=hljs-addition>+    }</span>
+<span class=hljs-addition>+</span>
+     return result
+   }
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+  function count() {}</span>
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+  function color() {}</span>
+ }
+</code></pre><blockquote><p><code>key</code> is needed for <code>virtual-dom</code> <a href=https://github.com/Matt-Esch/virtual-dom/tree/master/virtual-hyperscript#key rel="nofollow noopener noreferrer">to be performant</a>.</blockquote><p>We don’t colour sentences yet, but there’s <code>&#60span></code> elements wrapping them now. You can see that in action by running <code>npm test</code> again and using your web inspector to inspect the drawing area.<p>We’ve also set up two functions to highlight sentences. <code>count</code> will count the number of words of a given sentence, and <code>color</code> will pick a corresponding colour.<h3 id=highlight><a href=#highlight class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Highlight</h3><p>Now, let’s add colours. Update <code>index.js</code> like so:<pre><code class="hljs language-diff">@@ -4,6 +4,11 @@ var diff = require('virtual-dom/diff')
+ var patch = require('virtual-dom/patch')
+ var unified = require('unified')
+ var english = require('retext-english')
+<span class=hljs-addition>+var visit = require('unist-util-visit')</span>
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+var hues = [</span>
+<span class=hljs-addition>+  0</span>
+<span class=hljs-addition>+]</span>
+
+ var processor = unified().use(english)
+ var root = document.getElementById('root')
+@@ -60,7 +65,20 @@ function render(text) {
+     return result
+   }
+
+<span class=hljs-deletion>-  function count() {}</span>
+<span class=hljs-addition>+  function count(node) {</span>
+<span class=hljs-addition>+    var value = 0</span>
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+    visit(node, 'WordNode', add)</span>
+
+<span class=hljs-addition>+    return value</span>
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+    function add() {</span>
+<span class=hljs-addition>+      value++</span>
+<span class=hljs-addition>+    }</span>
+<span class=hljs-addition>+  }</span>
+<span class=hljs-addition>+</span>
+<span class=hljs-deletion>-  function color() {}</span>
+<span class=hljs-addition>+  function color(count) {</span>
+<span class=hljs-addition>+    var val = count &#60 hues.length ? hues[count] : hues[hues.length - 1]</span>
+<span class=hljs-addition>+    return 'hsl(' + [val, '93%', '85%'].join(', ') + ')'</span>
+<span class=hljs-addition>+  }</span>
+ }
+</code></pre><blockquote><p>Don’t forget to <code>npm install --save unist-util-visit</code>.</blockquote><p>The <code>count</code> function searches <code>node</code> for all occurrences of words, through <a href=/explore/package/unist-util-visit/><code>unist-util-visit</code></a>, and returns that count.<p><code>color</code> takes a number, and returns a nice colour in <abbr title="Hue, saturation, lightness"class=first>HSL</abbr> for it. It does so based on if there’s a corresponding hue for it in <code>hues</code> (now only one value). If there’s no corresponding hue, it uses the last specified hue.<p>It’s not much, but it’s something. Try it out by running <code>npm test</code> again, and viewing <code>index.html</code> in your browser. If everything went okay, you should see each sentence highlighted in red.<h3 id=colour><a href=#colour class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Colour</h3><p>One colour isn’t that cool, and we’re trying to recreate that <a href=https://twitter.com/gregoryciotti/status/639837682844090369 rel="nofollow noopener noreferrer">visualisation by @gregoryciotti</a>. We need some more colours. From that image, I deducted the following hues. But you could use any hues you like!<p>To match that image, change <code>hues</code> like so:<pre><code class="hljs language-diff">@@ -7,7 +7,20 @@ var english = require('retext-english')
+ var visit = require('unist-util-visit')
+
+ var hues = [
+<span class=hljs-addition>+  60,</span>
+<span class=hljs-addition>+  60,</span>
+<span class=hljs-addition>+  60,</span>
+<span class=hljs-addition>+  300,</span>
+<span class=hljs-addition>+  300,</span>
+   0,
+<span class=hljs-addition>+  0,</span>
+<span class=hljs-addition>+  120,</span>
+<span class=hljs-addition>+  120,</span>
+<span class=hljs-addition>+  120,</span>
+<span class=hljs-addition>+  120,</span>
+<span class=hljs-addition>+  120,</span>
+<span class=hljs-addition>+  120,</span>
+<span class=hljs-addition>+  180</span>
+ ]
+
+ var processor = unified().use(english)
+</code></pre><h3 id=squashing-bugs><a href=#squashing-bugs class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Squashing bugs</h3><p>💃 After running <code>npm test</code> again, and reopening <code>index.html</code> in your browser, you should now see <code>The initial text</code> in purple! If you add more sentences, they each should receive colours based on how many words they have.<p>If you add more text, you’ll notice that our drawing area grows nicely, but our text area does not. That’s because this example positions the <code>&#60textarea></code> absolutely on top of the drawing area. The easiest way to get both areas the same height, is with the following slightly hacky code:<pre><code class="hljs language-diff">@@ -28,10 +28,13 @@ var root = document.getElementById('root')
+ var tree = render('The initial text.')
+ var dom = root.appendChild(createElement(tree))
+
+<span class=hljs-addition>+setTimeout(resize, 4)</span>
+<span class=hljs-addition>+</span>
+ function onchange(ev) {
+   var next = render(ev.target.value)
+   dom = patch(dom, diff(tree, next))
+   tree = next
+<span class=hljs-addition>+  setTimeout(resize, 4)</span>
+ }
+
+ function render(text) {
+@@ -95,3 +98,10 @@ function render(text) {
+     return 'hsl(' + [val, '93%', '85%'].join(', ') + ')'
+   }
+ }
+<span class=hljs-addition>+</span>
+<span class=hljs-addition>+function resize() {</span>
+<span class=hljs-addition>+  dom.lastChild.rows = Math.ceil(</span>
+<span class=hljs-addition>+    dom.firstChild.getBoundingClientRect().height /</span>
+<span class=hljs-addition>+    parseInt(window.getComputedStyle(dom.firstChild).lineHeight, 10)</span>
+<span class=hljs-addition>+  ) + 1</span>
+<span class=hljs-addition>+}</span>
+</code></pre><p>This updates the <code>rows</code> attribute on the text area to correspondent with the size of the drawing area.<h3 id=further-exercises><a href=#further-exercises class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Further exercises</h3><p>The above code has a few issues:<ul class=contains-task-list><li class=task-list-item><input disabled type=checkbox> <code>onchange</code> is not <a href=https://www.npmjs.com/package/debounce rel="nofollow noopener noreferrer">debounced</a>, which leads to performance issues<li class=task-list-item><input disabled type=checkbox> <code>input</code> events are not supported in some older browsers<li class=task-list-item><input disabled type=checkbox> The styles aren’t perfect<li class=task-list-item><input disabled type=checkbox> and probably some other things!</ul><p>…maybe you could solve some? Other than those issues, it’s a pretty cool little demo.<p>If you haven’t already, check out the other articles in the <a href=/learn/>learn section</a>!</div></main><footer class=container><nav class="flex row-l"><ol class="flex row x-show-l"><li><a href=/ class=unified><span class=hl>uni</span>fied</a><li><a href=/explore/>Explore</a><li><a href=/learn/>Learn</a><li><a href=/community/>Community</a></ol><ol class="row justify-end-l"><li><a href=https://spectrum.chat/unified>Spectrum</a><li><a href=https://opencollective.com/unified>OpenCollective</a><li><a href=https://twitter.com/unifiedjs>Twitter</a><li><a href=https://github.com/unifiedjs>GitHub</a></ol></nav></footer>

@@ -1,0 +1,106 @@
+<!doctypehtml><html lang=en><meta charset=utf8><title>Tree traversal - unified</title><meta content="width=device-width,initial-scale=1"name=viewport><link href=https://github.com rel=preconnect><link href=https://images.opencollective.com rel=preconnect><link href=https://twitter-avatar.now.sh rel=preconnect><link href=https://www.npmjs.com rel=preconnect><link href=https://bundlephobia.com rel=preconnect><link href=https://www.npmtrends.com rel=preconnect><link href=/syntax-light.css rel=stylesheet><link href=/index.css rel=stylesheet><link href=/big.css rel=stylesheet media=(min-width:36em)><link href=/syntax-dark.css rel=stylesheet media=(prefers-color-scheme:dark)><link href=/dark.css rel=stylesheet media=(prefers-color-scheme:dark)><link href=https://unifiedjs.com/learn/recipe/tree-traversal/ rel=canonical><meta content="How to do tree traversal (also known as walking or visiting a tree)"name=description><meta content=recipe,unist,tree,traverse,walk,visit,unified,parse,stringify,process,ast,transform name=keywords><meta content="Titus Wormer"name=author><meta content="© 2019 Titus Wormer"name=copyright><meta content=#0366d6 name=theme-color><meta content=article property=og:type><meta content=unified property=og:site_name><meta content=https://unifiedjs.com/learn/recipe/tree-traversal/ property=og:url><meta content="Tree traversal"property=og:title><meta content="How to do tree traversal (also known as walking or visiting a tree)"property=og:description><meta content=https://unifiedjs.com/image/cover-1200.png property=og:image><meta content="We compile content to syntax trees and syntax trees to content. We also provide hundreds of packages to work on the trees in between. You can build on the unified collective to make all kinds of interesting things."property=og:image:alt><meta content=1200 property=og:image:width><meta content=690 property=og:image:height><meta content=2019-12-23T00:00:00.000Z property=article:published_time><meta content=2019-12-23T00:00:00.000Z property=article:modified_time><meta content=recipe property=article:tag><meta content=unist property=article:tag><meta content=tree property=article:tag><meta content=traverse property=article:tag><meta content=walk property=article:tag><meta content=visit property=article:tag><meta content=summary_large_image name=twitter:card><meta content=https://unifiedjs.com/image/cover-1200.png name=twitter:image><meta content="We compile content to syntax trees and syntax trees to content. We also provide hundreds of packages to work on the trees in between. You can build on the unified collective to make all kinds of interesting things."name=twitter:image:alt><meta content=@unifiedjs name=twitter:site><meta content=@wooorm name=twitter:creator><script defer src=/search.js></script><header class=container><div class=row-l><h1><a href=/ class=unified><span class=hl>uni</span>fied</a></h1><nav class="flex row-l"aria-label="Main navigation"><ol class="flex row"><li><a href=/explore/>Explore</a><li><a href=/learn/>Learn</a><li><a href=/community/>Community</a></ol><ol class="row x-show-l justify-end-l"><li><a href=https://twitter.com/unifiedjs><svg class="icon x-show-l"height=24 viewBox="0 0 18 14"width=24 aria-label=Twitter role=img><path d="M18 1.684l-1.687 1.684v.28c0 .307-.05.602-.123.886-.04 2.316-.777 5.387-3.816 7.81C6.404 17.115 0 12.907 0 12.907c5.063 0 5.063-1.684 5.063-1.684-1.126 0-3.376-2.243-3.376-2.243.563.56 1.689 0 1.689 0C.56 7.295.56 5.61.56 5.61c.563.561 1.689 0 1.689 0C-.563 3.368 1.124.561 1.124.561 1.687 3.368 9 4.49 9 4.49l.093-.046A6.637 6.637 0 0 1 9 3.368C9 1.353 10.636 0 12.656 0c1.112 0 2.094.506 2.765 1.286l.329-.163L17.437 0l-1.122 2.245L18 1.684z"fill=currentcolor /></svg><span class=x-hide-l>Twitter</span></a><li><a href=https://github.com/unifiedjs><svg class="icon x-show-l"height=24 viewBox="0 0 48 48"width=24 aria-label=GitHub role=img><path d="M23.928 1.15C11 1.15.514 11.638.514 24.566c0 10.343 6.75 19.105 15.945 22.265 1.148.144 1.58-.574 1.58-1.15v-4.02c-6.465 1.436-7.902-3.16-7.902-3.16-1.005-2.73-2.586-3.45-2.586-3.45-2.154-1.435.144-1.435.144-1.435 2.298.144 3.59 2.442 3.59 2.442 2.156 3.59 5.46 2.586 6.753 2.01.142-1.58.86-2.585 1.435-3.16-5.17-.574-10.63-2.585-10.63-11.635 0-2.585.862-4.596 2.442-6.32-.287-.575-1.005-3.017.288-6.177 0 0 2.01-.574 6.464 2.442 1.866-.574 3.877-.718 5.888-.718 2.01 0 4.022.286 5.89.717 4.453-3.016 6.464-2.442 6.464-2.442 1.293 3.16.43 5.602.287 6.177a9.29 9.29 0 012.44 6.32c0 9.05-5.458 10.918-10.63 11.492.863.718 1.58 2.155 1.58 4.31v6.464c0 .574.432 1.292 1.58 1.15 9.338-3.16 15.946-11.924 15.946-22.266-.143-12.785-10.63-23.27-23.558-23.27z"fill=currentcolor clip-rule=evenodd fill-rule=evenodd /></svg><span class=x-hide-l>GitHub</span></a></ol></nav></div></header><section class=container><div class="row-l column-l"><h2><a href=/learn/>Learn</a><span class="lowlight separator">/</span><a href=/learn/recipe/>Recipe</a><span class="lowlight separator">/</span><span class=content><a href=/learn/recipe/tree-traversal/>Tree traversal</a></span></h2></div></section><main class=container><div class="content article"><h2 id=how-to-walk-a-tree><a href=#how-to-walk-a-tree class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>How to walk a tree</h2><h3 id=contents><a href=#contents class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Contents</h3><ul><li><a href=#tree-traversal>Tree traversal</a><li><a href=#set-up>Set up</a><li><a href=#traverse-the-tree>Traverse the tree</a><li><a href=#visiting-a-certain-kind-of-node>Visiting a certain kind of node</a></ul><h3 id=tree-traversal><a href=#tree-traversal class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Tree traversal</h3><p><strong>Tree traversal</strong> is a common task when working with syntax trees. The term <em>tree</em> here means a node and all its <em>descendants</em> (all the nodes inside it). Traversal means stopping at every node to do something. So, tree traversal means doing something for every node in a tree.<p>Tree traversal is often also called “walking a tree”, or “visiting a tree”.<p>To learn more, continue reading, but when working with <a href=https://github.com/syntax-tree/unist class=unist rel="nofollow noopener noreferrer"><span class=hl>uni</span>st</a> (<a href=/explore/package/unified/ class=unified><span class=hl>uni</span>fied</a>’s trees) you probably need either:<ul><li><a href=/explore/package/unist-util-visit/><code>unist-util-visit</code></a><li><a href=/explore/package/unist-util-visit-parents/><code>unist-util-visit-parents</code></a></ul><h3 id=set-up><a href=#set-up class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Set up</h3><p>Glad you’re still here! Let’s say we have the following fragment of <abbr class=first title="Hypertext markup language">HTML</abbr>, in a file <code>example.html</code>:<pre><code class="hljs language-html"><span class=hljs-tag>&lt;<span class=hljs-name>p</span>></span>
+  <span class=hljs-comment>&#60!-- A comment. --></span>
+  Some <span class=hljs-tag>&lt;<span class=hljs-name>strong</span>></span>strong importance<span class=hljs-tag>&#60/<span class=hljs-name>strong</span>></span>, <span class=hljs-tag>&lt;<span class=hljs-name>em</span>></span>emphasis<span class=hljs-tag>&#60/<span class=hljs-name>em</span>></span>, and a dash of
+  <span class=hljs-tag>&lt;<span class=hljs-name>code</span>></span>code<span class=hljs-tag>&#60/<span class=hljs-name>code</span>></span>.
+<span class=hljs-tag>&#60/<span class=hljs-name>p</span>></span>
+</code></pre><p>You could parse that with the following code (using <a href=/explore/package/unified/><code>unified</code></a> and <a href=/explore/package/rehype-parse/><code>rehype-parse</code></a>):<pre><code class="hljs language-js"><span class=hljs-keyword>var</span> fs = <span class=hljs-built_in>require</span>(<span class=hljs-string>'fs'</span>)
+<span class=hljs-keyword>var</span> unified = <span class=hljs-built_in>require</span>(<span class=hljs-string>'unified'</span>)
+<span class=hljs-keyword>var</span> parse = <span class=hljs-built_in>require</span>(<span class=hljs-string>'rehype-parse'</span>)
+
+<span class=hljs-keyword>var</span> doc = fs.readFileSync(<span class=hljs-string>'example.html'</span>)
+
+<span class=hljs-keyword>var</span> tree = unified()
+  .use(parse, {<span class=hljs-attr>fragment</span>: <span class=hljs-literal>true</span>})
+  .parse(doc)
+
+<span class=hljs-built_in>console</span>.log(tree)
+</code></pre><p>Which would yield (ignoring positional info for brevity):<pre><code class="hljs language-js">{
+  <span class=hljs-attr>type</span>: <span class=hljs-string>'root'</span>,
+  <span class=hljs-attr>children</span>: [
+    {
+      <span class=hljs-attr>type</span>: <span class=hljs-string>'element'</span>,
+      <span class=hljs-attr>tagName</span>: <span class=hljs-string>'p'</span>,
+      <span class=hljs-attr>properties</span>: {},
+      <span class=hljs-attr>children</span>: [
+        {<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>'\n  '</span>},
+        {<span class=hljs-attr>type</span>: <span class=hljs-string>'comment'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>' A comment. '</span>},
+        {<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>'\n  Some '</span>},
+        {
+          <span class=hljs-attr>type</span>: <span class=hljs-string>'element'</span>,
+          <span class=hljs-attr>tagName</span>: <span class=hljs-string>'strong'</span>,
+          <span class=hljs-attr>properties</span>: {},
+          <span class=hljs-attr>children</span>: [{<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>'strong importance'</span>}]
+        },
+        {<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>', '</span>},
+        {
+          <span class=hljs-attr>type</span>: <span class=hljs-string>'element'</span>,
+          <span class=hljs-attr>tagName</span>: <span class=hljs-string>'em'</span>,
+          <span class=hljs-attr>properties</span>: {},
+          <span class=hljs-attr>children</span>: [{<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>'emphasis'</span>}]
+        },
+        {<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>', and a dash of\n  '</span>},
+        {
+          <span class=hljs-attr>type</span>: <span class=hljs-string>'element'</span>,
+          <span class=hljs-attr>tagName</span>: <span class=hljs-string>'code'</span>,
+          <span class=hljs-attr>properties</span>: {},
+          <span class=hljs-attr>children</span>: [{<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>'code'</span>}]
+        },
+        {<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>'.\n'</span>}
+      ]
+    },
+    {<span class=hljs-attr>type</span>: <span class=hljs-string>'text'</span>, <span class=hljs-attr>value</span>: <span class=hljs-string>'\n'</span>}
+  ],
+  <span class=hljs-attr>data</span>: {<span class=hljs-attr>quirksMode</span>: <span class=hljs-literal>false</span>}
+}
+</code></pre><p>As we are all set up, we can traverse the tree.<h3 id=traverse-the-tree><a href=#traverse-the-tree class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Traverse the tree</h3><p>A useful utility for that is <a href=/explore/package/unist-util-visit/><code>unist-util-visit</code></a>, and it works like so:<pre><code class="hljs language-js"><span class=hljs-keyword>var</span> visit = <span class=hljs-built_in>require</span>(<span class=hljs-string>'unist-util-visit'</span>)
+
+<span class=hljs-comment>// …</span>
+
+visit(tree, <span class=hljs-function><span class=hljs-keyword>function</span>(<span class=hljs-params>node</span>) </span>{
+  <span class=hljs-built_in>console</span>.log(node.type)
+})
+</code></pre><pre><code class="hljs language-txt">root
+element
+text
+comment
+text
+element
+text
+text
+element
+text
+text
+element
+text
+text
+text
+</code></pre><p>We traversed the entire tree, and for each node, we printed its <code>type</code>.<h3 id=visiting-a-certain-kind-of-node><a href=#visiting-a-certain-kind-of-node class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Visiting a certain kind of node</h3><p>To “visit” only a certain <code>type</code> of node, pass a test to <a href=/explore/package/unist-util-visit/><code>unist-util-visit</code></a> like so:<pre><code class="hljs language-js"><span class=hljs-keyword>var</span> visit = <span class=hljs-built_in>require</span>(<span class=hljs-string>'unist-util-visit'</span>)
+
+<span class=hljs-comment>// …</span>
+
+visit(tree, <span class=hljs-string>'element'</span>, <span class=hljs-function><span class=hljs-keyword>function</span>(<span class=hljs-params>node</span>) </span>{
+  <span class=hljs-built_in>console</span>.log(node.tagName)
+})
+</code></pre><pre><code class="hljs language-txt">p
+strong
+em
+code
+</code></pre><p>You can do this yourself as well. The above works the same as:<pre><code class="hljs language-js">visit(tree, <span class=hljs-function><span class=hljs-keyword>function</span>(<span class=hljs-params>node</span>) </span>{
+  <span class=hljs-keyword>if</span> (node.type === <span class=hljs-string>'element'</span>) {
+    <span class=hljs-built_in>console</span>.log(node.tagName)
+  }
+})
+</code></pre><p>But the test passed to <code>visit</code> can be more advanced, such as the following to visit different kinds of nodes.<pre><code class="hljs language-js">visit(tree, [<span class=hljs-string>'comment'</span>, <span class=hljs-string>'text'</span>], <span class=hljs-function><span class=hljs-keyword>function</span>(<span class=hljs-params>node</span>) </span>{
+  <span class=hljs-built_in>console</span>.log([node.value])
+})
+</code></pre><pre><code class="hljs language-txt">[ '\n  ' ]
+[ ' A comment. ' ]
+[ '\n  Some ' ]
+[ 'strong importance' ]
+[ ', ' ]
+[ 'emphasis' ]
+[ ', and a dash of\n  ' ]
+[ 'code' ]
+[ '.\n' ]
+[ '\n' ]
+</code></pre><p>Read more about <a href=/explore/package/unist-util-visit/><code>unist-util-visit</code></a> in its readme.</div></main><footer class=container><nav class="flex row-l"><ol class="flex row x-show-l"><li><a href=/ class=unified><span class=hl>uni</span>fied</a><li><a href=/explore/>Explore</a><li><a href=/learn/>Learn</a><li><a href=/community/>Community</a></ol><ol class="row justify-end-l"><li><a href=https://spectrum.chat/unified>Spectrum</a><li><a href=https://opencollective.com/unified>OpenCollective</a><li><a href=https://twitter.com/unifiedjs>Twitter</a><li><a href=https://github.com/unifiedjs>GitHub</a></ol></nav></footer>

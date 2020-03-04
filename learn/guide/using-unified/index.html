@@ -1,0 +1,165 @@
+<!doctypehtml><html lang=en><meta charset=utf8><title>Use unified - unified</title><meta content="width=device-width,initial-scale=1"name=viewport><link href=https://github.com rel=preconnect><link href=https://images.opencollective.com rel=preconnect><link href=https://twitter-avatar.now.sh rel=preconnect><link href=https://www.npmjs.com rel=preconnect><link href=https://bundlephobia.com rel=preconnect><link href=https://www.npmtrends.com rel=preconnect><link href=/syntax-light.css rel=stylesheet><link href=/index.css rel=stylesheet><link href=/big.css rel=stylesheet media=(min-width:36em)><link href=/syntax-dark.css rel=stylesheet media=(prefers-color-scheme:dark)><link href=/dark.css rel=stylesheet media=(prefers-color-scheme:dark)><link href=https://unifiedjs.com/learn/guide/using-unified/ rel=canonical><meta content="Guide that delves into transforming Markdown to HTML"name=description><meta content=guide,use,transform,remark,rehype,unified,parse,stringify,process,ast name=keywords><meta content="Titus Wormer"name=author><meta content="© 2017 Titus Wormer"name=copyright><meta content=#0366d6 name=theme-color><meta content=article property=og:type><meta content=unified property=og:site_name><meta content=https://unifiedjs.com/learn/guide/using-unified/ property=og:url><meta content="Use unified"property=og:title><meta content="Guide that delves into transforming Markdown to HTML"property=og:description><meta content=https://unifiedjs.com/image/cover-1200.png property=og:image><meta content="We compile content to syntax trees and syntax trees to content. We also provide hundreds of packages to work on the trees in between. You can build on the unified collective to make all kinds of interesting things."property=og:image:alt><meta content=1200 property=og:image:width><meta content=690 property=og:image:height><meta content=2017-05-03T00:00:00.000Z property=article:published_time><meta content=2019-12-12T00:00:00.000Z property=article:modified_time><meta content=guide property=article:tag><meta content=use property=article:tag><meta content=transform property=article:tag><meta content=remark property=article:tag><meta content=rehype property=article:tag><meta content=summary_large_image name=twitter:card><meta content=https://unifiedjs.com/image/cover-1200.png name=twitter:image><meta content="We compile content to syntax trees and syntax trees to content. We also provide hundreds of packages to work on the trees in between. You can build on the unified collective to make all kinds of interesting things."name=twitter:image:alt><meta content=@unifiedjs name=twitter:site><meta content=@wooorm name=twitter:creator><script defer src=/search.js></script><header class=container><div class=row-l><h1><a href=/ class=unified><span class=hl>uni</span>fied</a></h1><nav class="flex row-l"aria-label="Main navigation"><ol class="flex row"><li><a href=/explore/>Explore</a><li><a href=/learn/>Learn</a><li><a href=/community/>Community</a></ol><ol class="row x-show-l justify-end-l"><li><a href=https://twitter.com/unifiedjs><svg class="icon x-show-l"height=24 viewBox="0 0 18 14"width=24 aria-label=Twitter role=img><path d="M18 1.684l-1.687 1.684v.28c0 .307-.05.602-.123.886-.04 2.316-.777 5.387-3.816 7.81C6.404 17.115 0 12.907 0 12.907c5.063 0 5.063-1.684 5.063-1.684-1.126 0-3.376-2.243-3.376-2.243.563.56 1.689 0 1.689 0C.56 7.295.56 5.61.56 5.61c.563.561 1.689 0 1.689 0C-.563 3.368 1.124.561 1.124.561 1.687 3.368 9 4.49 9 4.49l.093-.046A6.637 6.637 0 0 1 9 3.368C9 1.353 10.636 0 12.656 0c1.112 0 2.094.506 2.765 1.286l.329-.163L17.437 0l-1.122 2.245L18 1.684z"fill=currentcolor /></svg><span class=x-hide-l>Twitter</span></a><li><a href=https://github.com/unifiedjs><svg class="icon x-show-l"height=24 viewBox="0 0 48 48"width=24 aria-label=GitHub role=img><path d="M23.928 1.15C11 1.15.514 11.638.514 24.566c0 10.343 6.75 19.105 15.945 22.265 1.148.144 1.58-.574 1.58-1.15v-4.02c-6.465 1.436-7.902-3.16-7.902-3.16-1.005-2.73-2.586-3.45-2.586-3.45-2.154-1.435.144-1.435.144-1.435 2.298.144 3.59 2.442 3.59 2.442 2.156 3.59 5.46 2.586 6.753 2.01.142-1.58.86-2.585 1.435-3.16-5.17-.574-10.63-2.585-10.63-11.635 0-2.585.862-4.596 2.442-6.32-.287-.575-1.005-3.017.288-6.177 0 0 2.01-.574 6.464 2.442 1.866-.574 3.877-.718 5.888-.718 2.01 0 4.022.286 5.89.717 4.453-3.016 6.464-2.442 6.464-2.442 1.293 3.16.43 5.602.287 6.177a9.29 9.29 0 012.44 6.32c0 9.05-5.458 10.918-10.63 11.492.863.718 1.58 2.155 1.58 4.31v6.464c0 .574.432 1.292 1.58 1.15 9.338-3.16 15.946-11.924 15.946-22.266-.143-12.785-10.63-23.27-23.558-23.27z"fill=currentcolor clip-rule=evenodd fill-rule=evenodd /></svg><span class=x-hide-l>GitHub</span></a></ol></nav></div></header><section class=container><div class="row-l column-l"><h2><a href=/learn/>Learn</a><span class="lowlight separator">/</span><a href=/learn/guide/>Guide</a><span class="lowlight separator">/</span><span class=content><a href=/learn/guide/using-unified/>Use unified</a></span></h2></div></section><main class=container><div class="content article"><h2 id=using-unified><a href=#using-unified class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Using unified</h2><p>This guide delves into how <a href=/explore/package/unified/ class=unified><span class=hl>uni</span>fied</a> can be used to transform a Markdown file to <abbr title="Hypertext markup language"class=first>HTML</abbr>. It’ll also show how to generate a table of contents, and sidestep into checking prose.<blockquote><p>Stuck? A good place to get help fast is <a href=https://spectrum.chat/unified rel="nofollow noopener noreferrer">Spectrum</a>. Have an idea for another guide? Share it on Spectrum!</blockquote><h3 id=contents><a href=#contents class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Contents</h3><ul><li><a href=#tree-transformations>Tree transformations</a><li><a href=#plugins>Plugins</a><li><a href=#reporting>Reporting</a><li><a href=#checking-prose>Checking prose</a><li><a href=#further-exercises>Further exercises</a></ul><h3 id=tree-transformations><a href=#tree-transformations class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Tree transformations</h3><p>For this example, we’ll start out with Markdown content, then transform to <abbr title="Hypertext markup language">HTML</abbr>. We need a Markdown parser and an <abbr title="Hypertext markup language">HTML</abbr> stringifier for that. The relevant projects are respectively <a href=/explore/package/remark-parse/><code>remark-parse</code></a> and <a href=/explore/package/rehype-stringify/><code>rehype-stringify</code></a>. To transform between the two syntaxes, we’ll use <a href=/explore/package/remark-rehype/><code>remark-rehype</code></a>. Finally, we’ll use <a href=/explore/package/unified/ class=unified><span class=hl>uni</span>fied</a> itself to glue these together, and <a href=/explore/package/unified-stream/><code>unified-stream</code></a> for streaming.<p>Let’s install those with <a href=https://www.npmjs.com/ rel="nofollow noopener noreferrer">npm</a>, which comes bundled with <a href=https://nodejs.org/ rel="nofollow noopener noreferrer">Node</a>.<pre><code class="hljs language-sh">$ npm install unified unified-stream remark-parse remark-rehype rehype-stringify
+/Users/tilde/example
+├── rehype-stringify@6.0.1
+├── remark-parse@7.0.2
+├── remark-rehype@5.0.0
+├── unified-stream@1.0.5
+└── unified@8.4.2
+</code></pre><p>Let’s first create a Markdown file that we’re going to transform.<pre><code class="hljs language-markdown"><span class=hljs-section># Hello World</span>
+
+<span class=hljs-section>## Table of Content</span>
+
+<span class=hljs-section>## Install</span>
+
+A <span class=hljs-strong>**example**</span>.
+
+<span class=hljs-section>## Use</span>
+
+More <span class=hljs-code>`text`</span>.
+
+<span class=hljs-section>## License</span>
+
+MIT
+</code></pre><p>Then, create an <code>index.js</code> script as well. It’ll transform Markdown to <abbr title="Hypertext markup language">HTML</abbr>. It’s hooked up to read from stdin and write to stdout.<pre><code class="hljs language-javascript"><span class=hljs-keyword>var</span> unified = <span class=hljs-built_in>require</span>(<span class=hljs-string>'unified'</span>)
+<span class=hljs-keyword>var</span> stream = <span class=hljs-built_in>require</span>(<span class=hljs-string>'unified-stream'</span>)
+<span class=hljs-keyword>var</span> markdown = <span class=hljs-built_in>require</span>(<span class=hljs-string>'remark-parse'</span>)
+<span class=hljs-keyword>var</span> remark2rehype = <span class=hljs-built_in>require</span>(<span class=hljs-string>'remark-rehype'</span>)
+<span class=hljs-keyword>var</span> html = <span class=hljs-built_in>require</span>(<span class=hljs-string>'rehype-stringify'</span>)
+
+<span class=hljs-keyword>var</span> processor = unified()
+  .use(markdown)
+  .use(remark2rehype)
+  .use(html)
+
+process.stdin.pipe(stream(processor)).pipe(process.stdout)
+</code></pre><p>Now, running our script with <a href=https://nodejs.org/ rel="nofollow noopener noreferrer">Node</a> (this uses your Shell to read <code>example.md</code> and write <code>example.html</code>):<pre><code class="hljs language-sh">$ node index.js &#60 example.md > example.html
+</code></pre><p>…gives us an <code>example.html</code> file that looks as follows:<pre><code class="hljs language-html"><span class=hljs-tag>&lt;<span class=hljs-name>h1</span>></span>Hello World<span class=hljs-tag>&#60/<span class=hljs-name>h1</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h2</span>></span>Table of Content<span class=hljs-tag>&#60/<span class=hljs-name>h2</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h2</span>></span>Install<span class=hljs-tag>&#60/<span class=hljs-name>h2</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>p</span>></span>A <span class=hljs-tag>&lt;<span class=hljs-name>strong</span>></span>example<span class=hljs-tag>&#60/<span class=hljs-name>strong</span>></span>.<span class=hljs-tag>&#60/<span class=hljs-name>p</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h2</span>></span>Use<span class=hljs-tag>&#60/<span class=hljs-name>h2</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>p</span>></span>More <span class=hljs-tag>&lt;<span class=hljs-name>code</span>></span>text<span class=hljs-tag>&#60/<span class=hljs-name>code</span>></span>.<span class=hljs-tag>&#60/<span class=hljs-name>p</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h2</span>></span>License<span class=hljs-tag>&#60/<span class=hljs-name>h2</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>p</span>></span>MIT<span class=hljs-tag>&#60/<span class=hljs-name>p</span>></span>
+</code></pre><blockquote><p>Note that <a href=/explore/package/remark-rehype/><code>remark-rehype</code></a> doesn’t deal with <abbr title="Hypertext markup language">HTML</abbr> inside the Markdown. You’ll need <a href=/explore/package/rehype-raw/><code>rehype-raw</code></a> if you’re planning on doing that.</blockquote><p>🎉 Nifty! It doesn’t do much yet, but we’ll get there. In the next section, we’ll make this more useful by introducing plugins.<h3 id=plugins><a href=#plugins class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Plugins</h3><p>We’re still missing some things, notably a table of contents, and proper <abbr title="Hypertext markup language">HTML</abbr> document structure.<p>We can use <a href=/explore/package/remark-slug/><code>remark-slug</code></a> and <a href=/explore/package/remark-toc/><code>remark-toc</code></a> for the former, and <a href=/explore/package/rehype-document/><code>rehype-document</code></a> to do the latter tasks.<pre><code class="hljs language-sh">$ npm install remark-slug remark-toc rehype-document
+/Users/tilde/example
+├── remark-slug@5.1.2
+├── remark-toc@6.0.0
+└── rehype-document@3.1.0
+</code></pre><p>Let’s now use those two as well, by modifying our <code>index.js</code> file:<pre><code class="hljs language-diff"> var unified = require('unified')
+ var stream = require('unified-stream')
+ var markdown = require('remark-parse')
+<span class=hljs-addition>+var slug = require('remark-slug')</span>
+<span class=hljs-addition>+var toc = require('remark-toc')</span>
+ var remark2rehype = require('remark-rehype')
+<span class=hljs-addition>+var doc = require('rehype-document')</span>
+ var html = require('rehype-stringify')
+
+ var processor = unified()
+   .use(markdown)
+<span class=hljs-addition>+  .use(slug)</span>
+<span class=hljs-addition>+  .use(toc)</span>
+   .use(remark2rehype)
+<span class=hljs-addition>+  .use(doc, {title: 'Contents'})</span>
+   .use(html)
+
+ process.stdin.pipe(stream(processor)).pipe(process.stdout)
+</code></pre><p>We pass options to <code>rehype-document</code>. In this case, we use that to make sure we get a proper <code>&#60title></code> element in our <code>&#60head></code>, as required by the <abbr title="Hypertext markup language">HTML</abbr> specification. More options are accepted by <code>rehype-document</code>, such as which language tag to use. These are described in detail in its <a href=/explore/package/rehype-document/><code>readme.md</code></a>. Many other plugins accept options as well, so make sure to read through their docs to learn more.<blockquote><p>Note that <a href=/explore/project/remarkjs/remark/ class=remark><span class=hl>re</span>mark</a> plugins work on a Markdown tree, and <a href=/explore/project/rehypejs/rehype/ class=rehype><span class=hl>re</span>hype</a> plugins work on an <abbr title="Hypertext markup language">HTML</abbr> tree. It’s important that you place your <code>.use</code> calls in the correct places.</blockquote><p>Now, when running our script like before, we’d get the following <code>example.html</code> file:<pre><code class="hljs language-html"><span class=hljs-meta>&#60!doctype html></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>html</span> <span class=hljs-attr>lang</span>=<span class=hljs-string>"en"</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>head</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>meta</span> <span class=hljs-attr>charset</span>=<span class=hljs-string>"utf-8"</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>title</span>></span>Contents<span class=hljs-tag>&#60/<span class=hljs-name>title</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>meta</span> <span class=hljs-attr>name</span>=<span class=hljs-string>"viewport"</span> <span class=hljs-attr>content</span>=<span class=hljs-string>"width=device-width, initial-scale=1"</span>></span>
+<span class=hljs-tag>&#60/<span class=hljs-name>head</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>body</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h1</span> <span class=hljs-attr>id</span>=<span class=hljs-string>"hello-world"</span>></span>Hello World<span class=hljs-tag>&#60/<span class=hljs-name>h1</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h2</span> <span class=hljs-attr>id</span>=<span class=hljs-string>"table-of-content"</span>></span>Table of Content<span class=hljs-tag>&#60/<span class=hljs-name>h2</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>ul</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>li</span>></span><span class=hljs-tag>&lt;<span class=hljs-name>a</span> <span class=hljs-attr>href</span>=<span class=hljs-string>"#install"</span>></span>Install<span class=hljs-tag>&#60/<span class=hljs-name>a</span>></span><span class=hljs-tag>&#60/<span class=hljs-name>li</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>li</span>></span><span class=hljs-tag>&lt;<span class=hljs-name>a</span> <span class=hljs-attr>href</span>=<span class=hljs-string>"#use"</span>></span>Use<span class=hljs-tag>&#60/<span class=hljs-name>a</span>></span><span class=hljs-tag>&#60/<span class=hljs-name>li</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>li</span>></span><span class=hljs-tag>&lt;<span class=hljs-name>a</span> <span class=hljs-attr>href</span>=<span class=hljs-string>"#license"</span>></span>License<span class=hljs-tag>&#60/<span class=hljs-name>a</span>></span><span class=hljs-tag>&#60/<span class=hljs-name>li</span>></span>
+<span class=hljs-tag>&#60/<span class=hljs-name>ul</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h2</span> <span class=hljs-attr>id</span>=<span class=hljs-string>"install"</span>></span>Install<span class=hljs-tag>&#60/<span class=hljs-name>h2</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>p</span>></span>A <span class=hljs-tag>&lt;<span class=hljs-name>strong</span>></span>example<span class=hljs-tag>&#60/<span class=hljs-name>strong</span>></span>.<span class=hljs-tag>&#60/<span class=hljs-name>p</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h2</span> <span class=hljs-attr>id</span>=<span class=hljs-string>"use"</span>></span>Use<span class=hljs-tag>&#60/<span class=hljs-name>h2</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>p</span>></span>More <span class=hljs-tag>&lt;<span class=hljs-name>code</span>></span>text<span class=hljs-tag>&#60/<span class=hljs-name>code</span>></span>.<span class=hljs-tag>&#60/<span class=hljs-name>p</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>h2</span> <span class=hljs-attr>id</span>=<span class=hljs-string>"license"</span>></span>License<span class=hljs-tag>&#60/<span class=hljs-name>h2</span>></span>
+<span class=hljs-tag>&lt;<span class=hljs-name>p</span>></span>MIT<span class=hljs-tag>&#60/<span class=hljs-name>p</span>></span>
+<span class=hljs-tag>&#60/<span class=hljs-name>body</span>></span>
+<span class=hljs-tag>&#60/<span class=hljs-name>html</span>></span>
+</code></pre><blockquote><p>You may noticed the document isn’t formatted nicely. There’s a plugin for that though! Feel free to add <a href=/explore/package/rehype-format/><code>rehype-format</code></a> to the plugins, below <code>doc</code>!</blockquote><p>💯 You’re acing it! This is getting pretty useful, right?<p>In the next section, we’ll lay the groundwork for creating a report.<h3 id=reporting><a href=#reporting class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Reporting</h3><p>Before we check some prose (yes, we’re getting there), we’ll first switch up our <code>index.js</code> file to print a pretty report (we’ll fill it in the next section).<p>We can use <a href=/explore/package/to-vfile/><code>to-vfile</code></a> to read and write virtual files from the file system, and we can use <a href=/explore/package/vfile-reporter/><code>vfile-reporter</code></a> to report messages relating to those files. Let’s install those.<pre><code class="hljs language-sh">$ npm install to-vfile vfile-reporter
+/Users/tilde/example
+├── to-vfile@6.0.0
+└── vfile-reporter@6.0.0
+</code></pre><p>…and now unhook stdin/stdout from our example and use the file-system instead, like so:<pre><code class="hljs language-diff"> var unified = require('unified')
+<span class=hljs-deletion>-var stream = require('unified-stream')</span>
+<span class=hljs-addition>+var vfile = require('to-vfile')</span>
+<span class=hljs-addition>+var report = require('vfile-reporter')</span>
+ var markdown = require('remark-parse')
+ var slug = require('remark-slug')
+ var toc = require('remark-toc')
+ var remark2rehype = require('remark-rehype')
+ var doc = require('rehype-document')
+ var html = require('rehype-stringify')
+
+ var processor = unified()
+   .use(markdown)
+   .use(slug)
+   .use(toc)
+   .use(remark2rehype)
+   .use(doc, {title: 'Contents'})
+   .use(html)
+
+<span class=hljs-deletion>-process.stdin.pipe(stream(processor)).pipe(process.stdout)</span>
+<span class=hljs-addition>+processor.process(vfile.readSync('example.md'), function(err, file) {</span>
+<span class=hljs-addition>+  if (err) throw err</span>
+<span class=hljs-addition>+  console.error(report(file))</span>
+<span class=hljs-addition>+  file.extname = '.html'</span>
+<span class=hljs-addition>+  vfile.writeSync(file)</span>
+<span class=hljs-addition>+})</span>
+</code></pre><p>If we now run our script on its own, without shell redirects, we get a report showing everything’s fine:<pre><code class="hljs language-sh">$ node index.js
+example.md: no issues found
+</code></pre><p>But everything’s not fine, there’s a typo in the Markdown! The next section shows how to detect prose errors by adding <a href=/explore/project/retextjs/retext/ class=retext><span class=hl>re</span>text</a>.<h3 id=checking-prose><a href=#checking-prose class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Checking prose</h3><p>I did notice a typo in there, so let’s check some prose to prevent that from happening in the future. We can use <a href=/explore/project/retextjs/retext/ class=retext><span class=hl>re</span>text</a> and its ecosystem for our natural language parsing. As we’re writing in English, we use <a href=/explore/package/retext-english/><code>retext-english</code></a> specifically to parse English natural language. The problem in our <code>example.md</code> file is that it has <code>a example</code> instead of <code>an example</code>, which is conveniently checked for by <a href=/explore/package/retext-indefinite-article/><code>retext-indefinite-article</code></a>. To bridge from markup to prose, we’ll use <a href=/explore/package/remark-retext/><code>remark-retext</code></a>. First, let’s install these dependencies as well.<pre><code class="hljs language-sh">$ npm install remark-retext retext-english retext-indefinite-article
+/Users/tilde/example
+├── remark-retext@3.1.3
+├── retext-english@3.0.4
+└── retext-indefinite-article@1.1.7
+</code></pre><p>…and change our <code>index.js</code> like so:<pre><code class="hljs language-diff"> var unified = require('unified')
+ var vfile = require('to-vfile')
+ var report = require('vfile-reporter')
+ var markdown = require('remark-parse')
+ var slug = require('remark-slug')
+ var toc = require('remark-toc')
+<span class=hljs-addition>+var remark2retext = require('remark-retext')</span>
+<span class=hljs-addition>+var english = require('retext-english')</span>
+<span class=hljs-addition>+var indefiniteArticle = require('retext-indefinite-article')</span>
+ var remark2rehype = require('remark-rehype')
+ var doc = require('rehype-document')
+ var html = require('rehype-stringify')
+
+ var processor = unified()
+   .use(markdown)
+<span class=hljs-addition>+  .use(</span>
+<span class=hljs-addition>+    remark2retext,</span>
+<span class=hljs-addition>+    unified()</span>
+<span class=hljs-addition>+      .use(english)</span>
+<span class=hljs-addition>+      .use(indefiniteArticle)</span>
+<span class=hljs-addition>+  )</span>
+   .use(slug)
+   .use(toc)
+   .use(remark2rehype)
+   .use(doc, {title: 'Contents'})
+   .use(html)
+
+ processor.process(vfile.readSync('example.md'), function(err, file) {
+   if (err) throw err
+   console.error(report(file))
+   file.extname = '.html'
+   vfile.writeSync(file)
+ })
+</code></pre><p>As the code shows, <code>remark-retext</code> receives another <code>unified</code> middleware pipeline. A natural language pipeline. The plugin will transform the origin syntax (Markdown) with the given pipeline’s parser. Then, it’ll run the attached plugins on the natural language syntax tree.<p>Now, when running our script one final time:<pre><code class="hljs language-sh">$ node index.js
+example.md
+  7:1-7:2  warning  Use `An` before `example`, not `A`  retext-indefinite-article  retext-indefinite-article
+
+⚠ 1 warning
+</code></pre><p>…we’ll get a useful message.<p>💃 You’ve got a really cool system set up already, nicely done! That’s a wrap though, check out the next section for further exercises and resources.<h3 id=further-exercises><a href=#further-exercises class=anchor aria-label="Link to self"><svg class=icon height=18 viewBox="0 0 50 50"width=18 aria-hidden=true><path d="M45.647 20.955L33.339 33.263a8.7 8.7 0 01-12.308 0l-4.103-4.103 4.103-4.102 4.102 4.102a2.903 2.903 0 004.103 0l12.307-12.307a2.907 2.907 0 000-4.104l-4.102-4.103a2.906 2.906 0 00-4.103 0l-4.394 4.395a11.542 11.542 0 00-6.644-1.559l6.936-6.938c3.4-3.399 8.91-3.399 12.307 0l4.103 4.102a8.702 8.702 0 010 12.309zM21.32 37.076l-4.392 4.391a2.903 2.903 0 01-4.102 0l-4.103-4.102a2.9 2.9 0 010-4.103L21.03 20.954a2.906 2.906 0 014.103 0l4.102 4.103 4.102-4.103-4.102-4.102a8.704 8.704 0 00-12.308 0L4.621 29.159a8.7 8.7 0 000 12.308l4.102 4.102c3.397 3.4 8.908 3.4 12.308 0l6.936-6.936a11.602 11.602 0 01-6.647-1.558z"fill=currentcolor /></svg></a>Further exercises</h3><p>Finally, check out the lists of available plugins for <a href=https://github.com/retextjs/retext/blob/master/doc/plugins.md rel="nofollow noopener noreferrer">retext</a>, <a href=https://github.com/remarkjs/remark/blob/master/doc/plugins.md rel="nofollow noopener noreferrer">remark</a>, and <a href=https://github.com/rehypejs/rehype/blob/master/doc/plugins.md rel="nofollow noopener noreferrer">rehype</a>, and try some of them out.<p>If you haven’t already, check out the other articles in the <a href=/learn/>learn section</a>!</div></main><footer class=container><nav class="flex row-l"><ol class="flex row x-show-l"><li><a href=/ class=unified><span class=hl>uni</span>fied</a><li><a href=/explore/>Explore</a><li><a href=/learn/>Learn</a><li><a href=/community/>Community</a></ol><ol class="row justify-end-l"><li><a href=https://spectrum.chat/unified>Spectrum</a><li><a href=https://opencollective.com/unified>OpenCollective</a><li><a href=https://twitter.com/unifiedjs>Twitter</a><li><a href=https://github.com/unifiedjs>GitHub</a></ol></nav></footer>
